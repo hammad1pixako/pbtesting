@@ -11,18 +11,30 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    password: {
-        type: String,
-        required: true,
-        min: 6,
-        max:64
+    profileImage: {
+        type: String
+    },
+    coverImage: {
+        type: String
     },
     userRole: {
         type: String,
         required: true,
         enum: ["User", "Admin"],
         default: "User"
-    }
+    },
+    token: {
+        type: String,
+    },
+    tokenExpiry: {
+        type: String,
+    },
+    password: {
+        type: String,
+        required: true,
+        min: 6,
+        max:64
+    },
 },{timestamps: true})
 
 module.exports = mongoose.model("User", userSchema)
