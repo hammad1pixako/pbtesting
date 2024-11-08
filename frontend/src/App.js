@@ -1,24 +1,38 @@
-import logo from './logo.svg';
+import { UserProvider } from './context';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Home from './pages/Home';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import Register from './pages/Auth/Register';
+import Login from './pages/Auth/Login';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import Header from './shared/Header';
+import MyProfile from './pages/MyProfile';
+import Test from './pages/Test';
+import MessagePage from './pages/MessagePage/MessagePage.js';
 
 function App() {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <div className="flex">
+        <ToastContainer position='top-right' theme="colored" />
+        <div className={`p-4 w-full`}>
+        <Header className='w-full' />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/myProfile" element={<MyProfile />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/message" element={<MessagePage />} />
+          </Routes>
+        </div>
+      </div>
+    </UserProvider>
   );
 }
 

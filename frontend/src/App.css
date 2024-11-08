@@ -1,38 +1,34 @@
-.App {
-  text-align: center;
+.fill-width {
+    width: -webkit-fill-available;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+td {
+    padding: 16px 8px !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+/* CSS for Toggle Button */
+#slider {
+    transition: .4s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#slider::before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 18px;
+    top: 2px;
+    transition: .4s;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
-.App-link {
-  color: #61dafb;
+input:checked+#slider {
+    background: green;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input:checked+#slider:before {
+    transform: translateX(-16px);
 }

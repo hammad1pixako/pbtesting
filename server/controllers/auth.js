@@ -1,10 +1,8 @@
-
-const User = require("../models/user.model");
-const { hashPassword, comparePassword } = require("../helpers/auth.helper");
+const User = require("../models/user");
+const { hashPassword, comparePassword } = require("../helpers/auth");
 const jwt = require('jsonwebtoken');
-const { sendEmail } = require("../helpers/nodeMailer");
 
-const userRegister = async (req, res) => {
+const register = async (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name) return res.status(400).send("Name is required");
@@ -28,7 +26,7 @@ const userRegister = async (req, res) => {
     }
 }
 
-const userLogin = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         // check if our db has user with that email
@@ -41,6 +39,7 @@ const userLogin = async (req, res) => {
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
             expiresIn: "1d",
         });
+        
         user.password = undefined;
         res.json({
             token,
@@ -52,7 +51,20 @@ const userLogin = async (req, res) => {
     }
 }
 
-module.exports={
-    userRegister,
-    userLogin
+const validUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.auth._id);
+        res.json({ valid: true });
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(400);
+    }
 }
+
+
+
+module.exports = {
+    register,
+    login,
+    validUser
+};
